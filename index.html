@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map example</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+</head>
+<body>
+  <div id="map" style="width: 100%; height: 90vh;"></div>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/tilelayer-canvas@1.0.2/index.min.js"></script>
+  <script src="layers.js"></script>
+  <script>
+    const map = new L.map('map').setView([52.732201, 15.237570], 13);
+
+    L.tileLayer.canvas('https://c.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    const config = {
+      tileSize: 1024,
+      crossOrigin: 'anonymous',
+      zoomOffset: -2
+    };
+
+    layersToRender.forEach(layer => {
+      const url = 'https://devel.gorzow.giap.pl/' + layer + '{z}/{x}/{y}.png';
+      L.tileLayer.canvas(url, config).addTo(map);
+    });
+  </script>
+</body>
+</html>
